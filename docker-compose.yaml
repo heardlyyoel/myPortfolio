@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  webportfolio:
+    build: .
+    ports:
+      - "2800:80"
+    container_name: webportfolio
