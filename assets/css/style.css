@@ -1,31 +1,14 @@
-/* =========================================
-   Google Fonts
-========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-
-/* =========================================
-   CSS Variables
-========================================= */
 :root{
-   /* ========== Main colors (HSL - hue, saturation, and lightness) ========== */
-
-   /* Blue - hsl(217, 85%, 74%); */
-   /* Purple - hsl(245, 54%, 74%); */
-   /* Teal - hsl(181, 47%, 49%); */
-   /* Yellow - hsl(65, 60%, 70%); */
-   /* Green - hsl(162, 60%, 65%); */
-   /* Red - hsl(356, 67%, 70%); */
-   /* Pink - hsl(330, 73%, 72%); */
-   /* Orange - hsl(39, 100%, 50%) / #FFA500 */
 
    --hue: 39;
    --sat: 100%;
    --light: 50%;
 
-   --primary-color: hsl(var(--hue) var(--sat) var(--light)); /* primary */
-   --white-color: hsl(var(--hue) 45% 98%); /* white */
-   --dark-color: hsl(var(--hue) 26% 12%); /* dark */
+   --primary-color: hsl(var(--hue) var(--sat) var(--light)); 
+   --white-color: hsl(var(--hue) 45% 98%); 
+   --dark-color: hsl(var(--hue) 26% 12%); 
 
    /* ======= Changeable colors for dark/light themes ======= */
    --color-01: hsl(var(--hue) var(--sat) var(--light)); /* primary to dark */
@@ -142,7 +125,7 @@
 }
 
 /* =========================================
-   Reset / Normalize
+   Reset
 ========================================= */
 *{
     box-sizing: border-box;
@@ -1438,7 +1421,7 @@ body{
 
 .portfolio-card .card-img{
     width: 100%;
-    height: 200px; /* kamu bisa sesuaikan tinggi ini sesuai kebutuhan */
+    height: 200px; 
     overflow: hidden;
 }
 
@@ -1838,19 +1821,52 @@ body{
     color: var(--primary-color);
     font-size: 1.25rem;
 }
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+
+#voiceInput {
+  width: 100%;
+  min-height: 150px;
+  resize: none;
+  padding-bottom: 60px; 
+}
+
+.mic-controls {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
 
 #languageSelect {
+  display: none;
   border: 2px solid var(--primary-color);
   border-radius: 6px;
   padding: 6px 10px;
   font-size: 14px;
   background-color: var(--card-bg); 
-  color: var(--color-02);          
+  color: var(--primary-color);          
   outline: none;
 }
 
-#languageSelect:focus {
-  border-color: var(--hover-color); 
+#startVoice {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#micIcon {
+  font-size: 30px;
+  color: var(--primary-color);
+}
+#languageSelect option[disabled] {
+  color: gray;
 }
 
 /* =========================================
@@ -1905,7 +1921,7 @@ body{
     transition: .3s;
 }
 /* =========================================
-   Media Queries (max-width: 1600px)
+   Media queries (max-width: 1600px)
 ========================================= */
 @media screen and (max-width: 1600px){
     
@@ -1920,7 +1936,7 @@ body{
 }
 
 /* =========================================
-   Media Queries (max-width: 1200px)
+   Media queries (max-width: 1200px)
 ========================================= */
 @media screen and (max-width: 1200px) {
     
@@ -1969,7 +1985,7 @@ body{
 }
 
 /* =========================================
-Media Queries (max-width: 992px)
+Media queries (max-width: 992px)
 ========================================= */
 @media screen and (max-width: 992px) {
     .cursor{
@@ -2047,7 +2063,7 @@ Media Queries (max-width: 992px)
 
 
 /* =========================================
-Media Queries (max-width: 768px)
+Media queries (max-width: 768px)
 ========================================= */
 @media screen and (max-width: 768px) {
     
@@ -2069,7 +2085,7 @@ Media Queries (max-width: 768px)
 
     .avatar-info .text-content {
     position: relative;
-    top: -30px; /* naikkan teks ke atas */
+    top: -30px; 
   }
 
    .ell-container{
@@ -2252,7 +2268,7 @@ Media Queries (max-width: 480px)
 
    .avatar-info {
     position: relative;
-    top: -60px; /* naik 20px ke atas */
+    top: -60px;
     }
 
     .bottom-nav{
@@ -2463,6 +2479,4 @@ Media Queries (max-width: 480px)
     font-size: 24px;
   }
 
-
 }
-      

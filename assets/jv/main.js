@@ -236,68 +236,82 @@ ellContactForm.addEventListener("submit", function (event) {
 /* ==============================
 Voice recognation
 ======================= */
- window.addEventListener("DOMContentLoaded", () => {
-    const startVoiceBtn = document.getElementById("startVoice");
-    const micIcon = document.getElementById("micIcon");
-    const voiceInput = document.getElementById("voiceInput");
-    const languageSelect = document.getElementById("languageSelect");
+window.addEventListener("DOMContentLoaded", () => {
+  const startVoiceBtn = document.getElementById("startVoice");
+  const micIcon = document.getElementById("micIcon");
+  const voiceInput = document.getElementById("voiceInput");
+  const languageSelect = document.getElementById("languageSelect");
 
-    let isRecording = false;
-    let recognition = null;
+  let isRecording = false;
+  let recognition = null;
+  let autoStopTimeout = null;
 
-    function initRecognition(lang) {
-      recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      recognition.lang = lang;
-      recognition.continuous = true;
-      recognition.interimResults = false;
+  function initRecognition(lang) {
+    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = lang;
+    recognition.continuous = true;
+    recognition.interimResults = false;
 
-      recognition.onresult = (event) => {
-        const transcript = Array.from(event.results).map(r => r[0].transcript).join(" ");
-        voiceInput.value = transcript.trim();
-      };
+    recognition.onresult = (event) => {
+      const transcript = Array.from(event.results).map(r => r[0].transcript).join(" ");
+      voiceInput.value = transcript.trim();
+    };
 
-      recognition.onerror = (event) => {
-        console.error("Speech Recognition Error:", event.error);
-        stopRecording();
-      };
+    recognition.onerror = (event) => {
+      console.error("Speech Recognition Error:", event.error);
+      stopRecording();
+    };
 
-      recognition.onend = () => {
-        stopRecording();
-      };
-    }
+    recognition.onend = () => {
+      stopRecording();
+    };
+  }
 
-    function startRecording(lang) {
-      initRecognition(lang);
-      recognition.start();
-      isRecording = true;
-      micIcon.classList.replace("ri-mic-off-fill", "ri-mic-fill");
-    }
+  function startRecording(lang) {
+    initRecognition(lang);
+    recognition.start();
+    isRecording = true;
+    micIcon.classList.replace("ri-mic-off-fill", "ri-mic-fill");
 
-    function stopRecording() {
-      if (recognition) {
-        recognition.stop();
-      }
-      isRecording = false;
-      micIcon.classList.replace("ri-mic-fill", "ri-mic-off-fill");
-    }
-
-    // when tombol mic clicked
-    startVoiceBtn.addEventListener("click", () => {
-      if (!isRecording) {
-        languageSelect.style.display = "block";
-        languageSelect.focus();
-      } else {
+    // Auto stop after 6 seconds
+    autoStopTimeout = setTimeout(() => {
+      const confirmed = confirm("Already recorded?");
+      if (confirmed) {
         stopRecording();
       }
-    });
+    }, 16000);
+  }
 
-    // when languange choosen, directly Start Record
-    languageSelect.addEventListener("change", () => {
-      const lang = languageSelect.value;
+  function stopRecording() {
+    if (recognition) {
+      recognition.stop();
+    }
+    isRecording = false;
+    micIcon.classList.replace("ri-mic-fill", "ri-mic-off-fill");
+
+    clearTimeout(autoStopTimeout); // Stop timer jika manual stop
+    autoStopTimeout = null;
+  }
+
+  startVoiceBtn.addEventListener("click", () => {
+    if (!isRecording) {
+      languageSelect.style.display = "inline-block";
+      languageSelect.focus();
+    } else {
+      stopRecording();
       languageSelect.style.display = "none";
-      startRecording(lang);
-    });
+    }
   });
+
+  languageSelect.addEventListener("change", () => {
+    const lang = languageSelect.value;
+    if (!lang) return;
+
+    languageSelect.style.display = "none";
+    startRecording(lang);
+  });
+});
+
 
 /* =====================================================
    Shrink the height of the header on scroll

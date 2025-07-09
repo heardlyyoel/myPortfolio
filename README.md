@@ -9,5 +9,7 @@ git clone https://github.com/username/webportofolio.git
 cd webportofolio
 
 docker-compose up --build
+```
 
+and open in your browser
 http://localhost:2800
